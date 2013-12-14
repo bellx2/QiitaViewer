@@ -1,6 +1,12 @@
 class TopicsController < UITableViewController
   def viewDidLoad
     super
+    self.navigationController.navigationBar.barTintColor = BubbleWrap.rgb_color(89, 187, 12)
+    self.navigationController.navigationBar.titleTextAttributes = {
+      NSForegroundColorAttributeName => UIColor.whiteColor
+    }
+    self.navigationController.navigationBar.tintColor = UIColor.whiteColor
+
     @entries = ['RubyMotion','Objective-C','xcode','nodejs','php']
 
     # url = "http://qiita.com/api/v1/tags"
@@ -16,7 +22,7 @@ class TopicsController < UITableViewController
     @entries.count
   end
 
-  ENTRY_CELL_ID = 'Entry'
+  ENTRY_CELL_ID = 'Topics'
   def tableView(table, cellForRowAtIndexPath:indexPath)
     cell = tableView.dequeueReusableCellWithIdentifier(ENTRY_CELL_ID)
     if cell.nil?
@@ -29,8 +35,9 @@ class TopicsController < UITableViewController
   end
 
   def tableView(tableView, didSelectRowAtIndexPath:indexPath)
-    controller = EntriesController.new
-    controller.tag = @entries[indexPath.row]
-    navigationController.pushViewController(controller, animated:true)
+    ud = NSUserDefaults.standardUserDefaults
+    ud["tag"] = @entries[indexPath.row]
+    self.performSegueWithIdentifier("Entries", sender:self)
   end
+
 end

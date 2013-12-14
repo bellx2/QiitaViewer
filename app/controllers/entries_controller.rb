@@ -5,6 +5,9 @@ class EntriesController < UITableViewController
   def viewDidLoad
     super
     # @tag = "RubyMotion"
+    ud = NSUserDefaults.standardUserDefaults
+    @tag = ud["tag"]
+
     self.title = @tag
     @entries = []
     SVProgressHUD.show
@@ -40,16 +43,10 @@ class EntriesController < UITableViewController
   end
 
   def tableView(tableView, didSelectRowAtIndexPath:indexPath)
-    entry = @entries[indexPath.row]
-    
-    controller = UIViewController.new
-    webView = UIWebView.new
-    webView.frame = controller.view.frame
-    controller.view.addSubview(webView)
-
-    navigationController.pushViewController(controller, animated:true)
-    #webView.loadHTMLString(body, baseURL:nil)
-    webView.loadRequest(NSURLRequest.requestWithURL(NSURL.URLWithString(entry.url)))
+    entry = @entries[indexPath.row]    
+    ud = NSUserDefaults.standardUserDefaults
+    ud["url"] = entry.url
+    self.performSegueWithIdentifier("Body", sender:self)
   end
 
 end
