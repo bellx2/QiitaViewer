@@ -1,5 +1,14 @@
-RubyMotionの基本プロジェクトです。
+RubyMotionで作るQuiitaのビューワーです。
 
+ぽちぽち作っています。
+
+rake pod:install
+
+が必要です。
+
+クラス更新時にはStoryboard関連付けのため「rake ib:open」が必要です。
+
+---------------------------------------------------------------
 追加モジュール
 
 - ib https://github.com/yury/ib

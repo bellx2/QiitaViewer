@@ -14,3 +14,7 @@ nbproject
 .eprj
 .sass-cache
 .idea
+ib.xcodeproj
+vendor/Pods
+Podfile.lock
+
