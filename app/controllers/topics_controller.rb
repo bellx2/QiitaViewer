@@ -8,7 +8,6 @@ class TopicsController < UITableViewController
     self.navigationController.navigationBar.tintColor = UIColor.whiteColor
 
     @entries = ['RubyMotion','Objective-C','xcode','nodejs','php']
-
     # url = "http://qiita.com/api/v1/tags"
     # BW::HTTP.get(url) do |response|
     #   if response.ok?
@@ -28,16 +27,19 @@ class TopicsController < UITableViewController
     if cell.nil?
       cell = UITableViewCell.alloc.initWithStyle(UITableViewCellStyleSubtitle, reuseIdentifier:ENTRY_CELL_ID)
     end
-
     entry = @entries[indexPath.row]
     cell.textLabel.text = entry
     cell
   end
 
   def tableView(tableView, didSelectRowAtIndexPath:indexPath)
-    ud = NSUserDefaults.standardUserDefaults
-    ud["tag"] = @entries[indexPath.row]
+    @tag = @entries[indexPath.row]
     self.performSegueWithIdentifier("Entries", sender:self)
+  end
+
+  def prepareForSegue(segue, sender:sender)
+    controller = segue.destinationViewController
+    controller.tag = @tag
   end
 
 end

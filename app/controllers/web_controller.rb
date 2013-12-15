@@ -1,12 +1,9 @@
 class WebController < UIViewController
 
-  attr_accessor :tag
+  attr_accessor :url
   
   def viewDidLoad
     super
-    ud = NSUserDefaults.standardUserDefaults
-    @url = ud["url"]
-
     webView = UIWebView.new
     webView.frame = self.view.frame
     self.view.addSubview(webView)
