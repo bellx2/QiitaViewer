@@ -17,4 +17,4 @@ nbproject
 ib.xcodeproj
 vendor/Pods
 Podfile.lock
-
+config.yml

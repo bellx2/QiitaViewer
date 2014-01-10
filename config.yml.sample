@@ -1,0 +1,9 @@
+# config.ymlのサンプルです。
+# アプリの基本情報やAPIトークン等gitで非公開にしたい情報をを記述しておきます。
+
+app:
+  identifier: hoge.rmqiita
+
+testflight:
+  api_token: <API_TOKEN>
+  team_token: <TEAM_TOKEN>
