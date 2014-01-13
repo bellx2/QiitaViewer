@@ -25,6 +25,7 @@ Motion::Project::App.setup do |app|
 
   app.pods do
     pod 'SVProgressHUD'
+    pod 'MagicalRecord'
   end
 
   # app.frameworks = ["UIKit", "Foundation", "CoreGraphics"]

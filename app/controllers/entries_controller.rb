@@ -40,6 +40,12 @@ class EntriesController < UITableViewController
     entry = @entries[indexPath.row]
     cell.textLabel.text = entry.title
     cell.detailTextLabel.text = "#{entry.updated_at} by #{entry.username}"
+    # AFMotion::Image.get(entry.profile) do |result|
+    #   imageView = UIImageView.alloc.initWithImage(result.object)
+    #   imageView.frame = CGRectMake(0, 0, 100, 100)
+    #   cell.image = imageView.image
+    #   cell.layoutSubviews
+    # end
     cell
   end
 
