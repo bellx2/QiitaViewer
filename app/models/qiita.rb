@@ -1,12 +1,13 @@
 module Qiita
   class Item
-    attr_accessor :title, :username, :updated_at, :body, :url
+    attr_accessor :title, :username, :updated_at, :body, :url, :profile
     def initialize(data)
       @title      = data['title']
       @username   = data['user']['url_name']
       @updated_at = data['updated_dat_in_words']
       @body       = data['body']
       @url        = data['url']
+      @profile    = data['user']['profile_image_url']
     end
   end
 

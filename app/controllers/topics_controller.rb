@@ -1,4 +1,7 @@
-class TopicsController < UITableViewController
+ class TopicsController < UITableViewController
+  extend IB
+
+  outlet :searchBar, UISearchBar
 
   def viewDidLoad
     super
@@ -8,24 +11,14 @@ class TopicsController < UITableViewController
     }
     self.navigationController.navigationBar.tintColor = UIColor.whiteColor
     self.navigationItem.rightBarButtonItem = self.editButtonItem
+    
+    searchBar.delegate = self
+  end
 
-    # @topics = Topic.all().to_a
-    # if @topics == nil
-    #   Topics.new([:title=>'RubyMotion'])      
-    #   save
-    #   @topics = Topic.all().to_a
-    # end
-    #@topics = ['RubyMotion','Objective-C','xcode','nodejs','php']
-    # @topics = Array.new
-    # url = "http://qiita.com/api/v1/tags?per_page=100"
-    # BW::HTTP.get(url) do |response|
-    #   if response.ok?
-    #     BW::JSON.parse(response.body.to_s).each do |obj|
-    #       @topics << obj['name'].to_s
-    #     end
-    #     self.tableView.reloadData
-    #   end
-    # end
+  def viewWillAppear(animated)
+    p "viewWillAppear"
+    @tags = nil
+    view.reloadData
   end
 
   def tags
@@ -48,22 +41,22 @@ class TopicsController < UITableViewController
   end
 
   def tableView(tableView, didSelectRowAtIndexPath:indexPath)
-    @nexttag = self.tags[indexPath.row]
+    @nexttag = self.tags[indexPath.row].name
     self.performSegueWithIdentifier("Entries", sender:self)
   end
 
   def prepareForSegue(segue, sender:sender)
     controller = segue.destinationViewController
-    controller.tag = @nexttag.name
+    controller.tag = @nexttag
   end
 
   def setEditing(editing, animated:animated)
     super
-    if(editing)
-      self.navigationItem.leftBarButtonItem = UIBarButtonItem.alloc.initWithBarButtonSystemItem(UIBarButtonSystemItemAdd, target:self, action: :addRow)
-    else
-      self.navigationItem.leftBarButtonItem = nil
-    end
+    # if(editing)
+    #   self.navigationItem.leftBarButtonItem = UIBarButtonItem.alloc.initWithBarButtonSystemItem(UIBarButtonSystemItemAdd, target:self, action: :addRow)
+    # else
+    #   self.navigationItem.leftBarButtonItem = nil
+    # end
   end
 
   def tableView(tableView, commitEditingStyle:editingStyle, forRowAtIndexPath:indexPath)
@@ -97,6 +90,11 @@ class TopicsController < UITableViewController
         view.reloadData
       end
     end.show
+  end
+
+  def searchBarSearchButtonClicked(searchBar)
+    @nexttag = searchBar.text
+    self.performSegueWithIdentifier("Entries", sender:self)
   end
 
 end

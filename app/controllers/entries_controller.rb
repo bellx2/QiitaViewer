@@ -1,7 +1,14 @@
 class EntriesController < UITableViewController
-
+  extend IB
   attr_accessor :tag
   
+  def saveTag sender
+    savetag = Tag.createEntity
+    savetag.name = @tag
+    NSManagedObjectContext.defaultContext.saveToPersistentStoreAndWait
+    App.alert(@tag+"を登録しました")
+  end
+
   def viewDidLoad
     super
     self.title = @tag
@@ -11,7 +18,7 @@ class EntriesController < UITableViewController
     @refreshControl.addTarget(self,action:"onRefresh",forControlEvents:UIControlEventValueChanged)
     self.refreshControl = @refreshControl
     onRefresh
-  end
+   end
 
   def onRefresh
     self.refreshControl.beginRefreshing
@@ -21,7 +28,7 @@ class EntriesController < UITableViewController
         self.tableView.reloadData
       else
         p response.error_message
-      end
+      end 
       self.refreshControl.endRefreshing
       SVProgressHUD.dismiss  #初回のみ
     end
@@ -51,7 +58,13 @@ class EntriesController < UITableViewController
 
   def tableView(tableView, didSelectRowAtIndexPath:indexPath)
     @url = @entries[indexPath.row].url
-    self.performSegueWithIdentifier("Body", sender:self)
+    # self.performSegueWithIdentifier("Body", sender:self)
+    webViewController = PBWebViewController.alloc.init
+    webViewController.URL = NSURL.alloc.initWithString(@url)
+    activity = PBSafariActivity.alloc.init
+    webViewController.applicationActivities = [activity]
+    webViewController.excludedActivityTypes = [UIActivityTypeMail, UIActivityTypeMessage, UIActivityTypePostToWeibo]
+    navigationController.pushViewController(webViewController, animated:TRUE)
   end
 
   def prepareForSegue(segue, sender:sender)
