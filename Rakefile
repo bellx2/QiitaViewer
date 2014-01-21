@@ -17,7 +17,7 @@ Motion::Project::App.setup do |app|
   app.version = "1.2"
   app.short_version = "1.2"
 
-  app.info_plist['UIMainStoryboardFile'] = 'Storyboard'
+  # app.info_plist['UIMainStoryboardFile'] = 'Storyboard'
 
   app.identifier = config['app']['identifier']  
   app.testflight.api_token  = config['testflight']['api_token']
@@ -37,10 +37,11 @@ Motion::Project::App.setup do |app|
 
   app.codesign_certificate = config['app']['codesign_certificate']
 
+  app.device_family = [:ipad, :iphone]
+  
   # app.frameworks = ["UIKit", "Foundation", "CoreGraphics"]
   # app.icons = ["Icon.png", "Icon-72.png", "Icon@2x.png"] 
   # app.prerendered_icon = false
-  # app.device_family = [:ipad]
   # app.interface_orientations = [:portrait, :landscape_left, :landscape_right]  
   # app.sdk_version = "7.0" 
 

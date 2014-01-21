@@ -5,14 +5,18 @@ class AppDelegate
     MagicalRecord.setupCoreDataStackWithStoreNamed("tag.sqlite")
 
     @window = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
-    @slider = JASidePanelController.alloc.init
-    @storyboard = UIStoryboard.storyboardWithName('Storyboard', bundle:nil)
-    @slider.leftPanel = @storyboard.instantiateViewControllerWithIdentifier("leftViewController")
-    @slider.centerPanel = @storyboard.instantiateViewControllerWithIdentifier("centerViewController")
-
-    @window.rootViewController = @slider;
+    if Device.iphone?
+      @slider = JASidePanelController.alloc.init
+      @storyboard = UIStoryboard.storyboardWithName('Storyboard', bundle:nil)
+      @slider.leftPanel = @storyboard.instantiateViewControllerWithIdentifier("leftViewController")
+      @slider.centerPanel = @storyboard.instantiateViewControllerWithIdentifier("centerViewController")
+      @window.rootViewController = @slider;
+    else
+      @storyboard = UIStoryboard.storyboardWithName('Storyboard_iPad', bundle:nil)
+      @window.rootViewController = @storyboard.instantiateViewControllerWithIdentifier("centerViewController")
+      NSLog("iPad")
+    end  
     @window.makeKeyAndVisible
-
     true
   end
 end
