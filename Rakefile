@@ -19,14 +19,16 @@ Motion::Project::App.setup do |app|
 
   # app.info_plist['UIMainStoryboardFile'] = 'Storyboard'
 
-  app.identifier = config['app']['identifier']  
-  app.testflight.api_token  = config['testflight']['api_token']
-  app.testflight.team_token = config['testflight']['team_token']
-  app.testflight.app_token  = config['testflight']['app_token']
-  app.testflight.distribution_lists = config['testflight']['distribution_list']
-  app.testflight.notify = false # default is false
-  app.testflight.identify_testers = false # default is false
-  app.testflight.sdk = 'vendor/TestFlight'
+  unless ENV["TRAVIS"]
+    app.identifier = config['app']['identifier']  
+    app.testflight.api_token  = config['testflight']['api_token']
+    app.testflight.team_token = config['testflight']['team_token']
+    app.testflight.app_token  = config['testflight']['app_token']
+    app.testflight.distribution_lists = config['testflight']['distribution_list']
+    app.testflight.notify = false # default is false
+    app.testflight.identify_testers = false # default is false
+    app.testflight.sdk = 'vendor/TestFlight'
+  end
 
   app.pods do
     pod 'SVProgressHUD'
