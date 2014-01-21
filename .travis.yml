@@ -2,6 +2,6 @@ language: objective-c
 before_install: 
   ruby --version
 before_script:
-  rake pod:install
-  cp ./config.yml.sample ./config.yml
+  - cp ./config.yml.sample ./config.yml
+  - rake pod:install
 
