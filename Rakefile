@@ -14,8 +14,8 @@ Motion::Project::App.setup do |app|
   config = YAML::load_file('./config.yml')
   
   app.name = 'RMQiita'
-  app.version = "1.2"
-  app.short_version = "1.2"
+  app.version = "1.3"
+  app.short_version = "1.3"
 
   # app.info_plist['UIMainStoryboardFile'] = 'Storyboard'
 
@@ -37,9 +37,9 @@ Motion::Project::App.setup do |app|
     pod 'PBWebViewController', :git =>'https://github.com/Palringo-Dev/PBWebViewController.git'
   end
 
-  app.codesign_certificate = config['app']['codesign_certificate']
+  # app.codesign_certificate = config['app']['codesign_certificate']
 
-  app.device_family = [:ipad, :iphone]
+  app.device_family = [:iphone, :ipad]
   
   # app.frameworks = ["UIKit", "Foundation", "CoreGraphics"]
   # app.icons = ["Icon.png", "Icon-72.png", "Icon@2x.png"] 
