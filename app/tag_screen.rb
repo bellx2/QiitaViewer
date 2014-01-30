@@ -32,10 +32,9 @@ class TagScreen < PM::TableScreen
   end
 
   def on_cell_deleted(cell)
-    # tag = Tag.findByAttribute(:name, withValue:cell['title'])
-    # tag.deleteEntry
-    # NSManagedObjectContext.defaultContext.saveToPersistentStoreAndWait
-    p cell
+    tag = Tag.findFirstByAttribute("name", withValue:cell[:title])
+    tag.deleteEntity
+    NSManagedObjectContext.defaultContext.saveToPersistentStoreAndWait
     true
   end
 
